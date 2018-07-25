@@ -28,7 +28,7 @@ module.exports = linkBoxesToShelfSpots = async () => {
       let duplicateSpot = true;
       // place box at spot if no box there
       while (duplicateSpot) {
-        const randomSpotIndex = randomMinMaxNum(0, spotCount - 1);
+        const randomSpotIndex = randomMinMaxNum(1, spotCount - 1);
         // check the array to see if the spot has a box already
         const isIncluded = shelfSpotWithBox.includes(randomSpotIndex);
 
