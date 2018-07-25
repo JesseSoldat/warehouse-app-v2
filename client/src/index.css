@@ -70,3 +70,34 @@ body {
 .Select-input {
   height: 46px;
 }
+
+/* customBreadcrumb------------------------------- */
+ul.customBreadcrumb {
+  list-style: none;
+  padding: 10px 16px;
+}
+
+/* Display list items side by side */
+ul.customBreadcrumb li {
+  display: inline;
+  font-size: 16px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.customBreadcrumb li + li:before {
+  color: black;
+  content: "/\00a0";
+  padding: 8px;
+}
+
+/* Add a color to all links inside the list */
+ul.customBreadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.customBreadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}

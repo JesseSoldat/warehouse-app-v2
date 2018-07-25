@@ -52,7 +52,7 @@ module.exports = linkProductsToBoxAndSpot = async () => {
 
         product["productLocation"] = {
           kind: "box",
-          item: shelfSpotId
+          item: boxId
         };
         await product.save();
       }
@@ -73,8 +73,8 @@ module.exports = linkProductsToBoxAndSpot = async () => {
         await product.save();
       }
       if (i < 4) {
-        console.log(`#${i} Product Location`);
-        console.log(product["productLocation"]);
+        // console.log(`#${i} Product Location`);
+        // console.log(product["productLocation"]);
       }
     });
 

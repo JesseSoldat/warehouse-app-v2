@@ -57,10 +57,10 @@ module.exports = linkProductsToCustomerAndProducer = async () => {
 
       await product.save();
 
-      console.log(`#${index} productCustomers`);
-      console.log(productCustomers);
+      // console.log(`#${index} productCustomers`);
+      // console.log(productCustomers);
     });
 
-    console.log("done");
+    // console.log("done");
   } catch (err) {}
 };

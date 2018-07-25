@@ -88,8 +88,13 @@ module.exports = app => {
         .populate({
           path: "productLocation.item",
           populate: {
-            path: "shelf rack",
-            populate: { path: "rack storage", populate: { path: "storage" } }
+            // shelf = shelfSpot
+            // shelfSpot = box
+            path: "shelf shelfSpot",
+            populate: {
+              path: "shelf rack",
+              populate: { path: "rack storage", populate: { path: "storage" } }
+            }
           }
         });
 
