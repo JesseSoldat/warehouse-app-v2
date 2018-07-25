@@ -83,9 +83,15 @@ module.exports = app => {
   app.get("/api/products/:productId", isAuth, async (req, res) => {
     const { productId } = req.params;
     try {
-      const product = await Product.findById(productId).populate(
-        "customer producer"
-      );
+      const product = await Product.findById(productId)
+        .populate("customer producer")
+        .populate({
+          path: "productLocation.item",
+          populate: {
+            path: "shelf rack",
+            populate: { path: "rack storage", populate: { path: "storage" } }
+          }
+        });
 
       serverRes(res, 200, null, product);
     } catch (err) {

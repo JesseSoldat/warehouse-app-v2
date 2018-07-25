@@ -7,8 +7,7 @@ const randomMinMaxNum = require("./helpers/randomMinMaxNum");
 
 module.exports = linkBoxesToShelfSpots = async () => {
   try {
-    const [boxCount, boxes, spotCount, spots] = await Promise.all([
-      Box.countDocuments(),
+    const [boxes, spotCount, spots] = await Promise.all([
       Box.find({}),
       ShelfSpot.countDocuments(),
       ShelfSpot.find({})

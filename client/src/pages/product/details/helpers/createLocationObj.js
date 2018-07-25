@@ -4,6 +4,8 @@ import capitalizeFirstLetter from "../../../../utils/stringManipulation/capitali
 const createLocationObj = (productLocation, productId) => {
   let productLocationObj;
 
+  console.log(productLocation);
+
   const noProductLocation = {
     haveLocation: false,
     data: [{ label: "Label", value: "" }, { label: "Type", value: "" }]

@@ -95,7 +95,7 @@ class Product extends Component {
     } else if (!product) {
       content = <Spinner />;
     } else {
-      const { match, history } = this.props;
+      const { match, history, product } = this.props;
       const { productId } = match.params;
 
       const {
