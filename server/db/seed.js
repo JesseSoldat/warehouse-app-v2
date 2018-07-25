@@ -3,6 +3,8 @@ const seedProducer = require("./seeding/producerSeed");
 const seedCustomer = require("./seeding/customerSeed");
 const storageSeed = require("./seeding/storageSeed");
 const boxSeed = require("./seeding/boxSeed");
+const linkBoxesToShelfSpots = require("./seeding/linkBoxesToShelfSpots");
+const linkProductsToShelfSpots = require("./seeding/linkProductsToShelfSpots");
 
 const seedDb = async () => {
   try {
@@ -10,7 +12,9 @@ const seedDb = async () => {
     // await seedProducer();
     // await seedCustomer();
     // await storageSeed();
-    await boxSeed();
+    // await boxSeed();
+    // await linkBoxesToShelfSpots();
+    await linkProductsToShelfSpots();
   } catch (err) {
     console.log("Error while seeding the DB.");
   }
