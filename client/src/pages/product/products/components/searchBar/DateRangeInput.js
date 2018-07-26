@@ -13,7 +13,7 @@ const DateRangeInput = ({
   handleUseValue2
 }) => {
   return (
-    <div className="col-xs-12 col-md-5 d-inline-block py-0 my-0">
+    <div className="col-xs-12 col-md-5 d-inline-block py-2 my-0">
       <div className="input-group d-flex justify-content-between">
         <span className="pr-2">
           <label className="p-0 m-0">

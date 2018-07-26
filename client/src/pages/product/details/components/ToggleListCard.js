@@ -13,6 +13,28 @@ class ToggleListCard extends Component {
     this.setState({ viewAll: false });
   };
 
+  renderShowBtn = (css = "", btnCss = "", label) => {
+    return (
+      <div className={`col-12 ${css}`}>
+        <button className={`btn btn-primary ${btnCss}`} onClick={this.viewAll}>
+          <i className="fas fa-eye mr-2  d-none d-sm-inline " />
+          All {label}
+        </button>
+      </div>
+    );
+  };
+
+  renderHideBtn = (css = "", btnCss = "", label) => {
+    return (
+      <div className={`col-12 ${css}`}>
+        <button className={`btn btn-primary ${btnCss}`} onClick={this.hide}>
+          <i className="fas fa-eye-slash mr-2 d-none d-sm-inline " />
+          Hide {label}
+        </button>
+      </div>
+    );
+  };
+
   render() {
     const { array, label, amountToDisplay = 2, width = 12 } = this.props;
     let cardArray = array;
@@ -29,24 +51,23 @@ class ToggleListCard extends Component {
     );
 
     const toggleBtn = this.state.viewAll ? (
-      <div className="row">
-        <div className="col-12">
-          <button className="btn btn-primary float-right" onClick={this.hide}>
-            <i className="fas fa-eye-slash mr-2 " />
-            Hide {label}
-          </button>
+      <div className="row  mb-3">
+        <div className="col-12 d-none d-sm-block">
+          {this.renderHideBtn("d-flex justify-content-sm-end", "mr-2", label)}
+        </div>
+
+        <div className="col-12 d-block d-sm-none">
+          {this.renderHideBtn("d-flex flex-column", "mb-3", label)}
         </div>
       </div>
     ) : (
-      <div className="row">
-        <div className="col-12">
-          <button
-            className="btn btn-primary float-right"
-            onClick={this.viewAll}
-          >
-            <i className="fas fa-eye mr-2 " />
-            All {label}
-          </button>
+      <div className="row  mb-3">
+        <div className="col-12 d-none d-sm-block">
+          {this.renderShowBtn("d-flex justify-content-sm-end", "mr-2", label)}
+        </div>
+
+        <div className="col-12 d-block d-sm-none">
+          {this.renderShowBtn("d-flex flex-column", "mb-3", label)}
         </div>
       </div>
     );

@@ -11,6 +11,13 @@ const InfoCard = ({
   packagingPictures,
   history
 }) => {
+  // events --------------------------------
+  const onCreateBarCode = productId => {
+    history.push(`/barcode/create?id=${productId}&type=product`);
+  };
+
+  const onManagePictures = productId => {};
+
   // render ui -----------------------------
   const renderImage = (productPictures, packagingPictures) => {
     let picturesArray = [];
@@ -34,26 +41,40 @@ const InfoCard = ({
     );
   };
 
-  // events --------------------------------
-  const onCreateBarCode = productId => {
-    history.push(`/barcode/create?id=${productId}&type=product`);
+  const renderBtns = (css = "", btnCss = "") => {
+    return (
+      <div className={`col-12 ${css}`}>
+        <button
+          className={`btn btn-secondary ${btnCss}`}
+          onClick={() => onManagePictures(productId)}
+        >
+          <i className="fas fa-chevron-right mr-2 d-none d-sm-inline" />
+          Manage Pictures
+        </button>
+        <button
+          className={`btn btn-primary ${btnCss}`}
+          onClick={() => onCreateBarCode(productId)}
+        >
+          <i className="fas fa-barcode mr-2 d-none d-sm-inline" />
+          Create Barcode
+        </button>
+      </div>
+    );
   };
 
   return (
     <div className="row">
       <div className="col-12">
         <div className="card card-body mb-3">
-          <div className="row">
-            <div className="col-12">
-              <button
-                className="btn btn-primary float-right"
-                onClick={() => onCreateBarCode(productId)}
-              >
-                <i className="fas fa-barcode mr-2" />
-                Create Barcode
-              </button>
+          <div className="row mb-2">
+            <div className="col-12 d-none d-sm-block">
+              {renderBtns("d-flex justify-content-sm-end", "mr-2")}
+            </div>
+            <div className="col-12 d-block d-sm-none">
+              {renderBtns("d-flex flex-column", "mb-2")}
             </div>
           </div>
+
           <div className="row">
             <div className="col-sm-12 col-md-6 ml-mr-auto">
               <ul className="list-group list-group-flush">

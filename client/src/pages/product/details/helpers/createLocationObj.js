@@ -23,7 +23,6 @@ const createLocationObj = (productLocation, productId) => {
     }
 
     let label, key, place, spotId, shelfId, rackId, storageId;
-    console.log(item);
 
     if (kind === "shelfSpot") {
       key = "spotLabel";

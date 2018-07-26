@@ -28,15 +28,19 @@ const LocationCard = ({
   };
 
   // render html ----------------------------------------------
-  const onLinkBtn = (
-    <button
-      className="btn btn-primary float-right"
-      onClick={() => onLink(productId)}
-    >
-      <i className="fas fa-archive mr-2" />
-      Store Product
-    </button>
-  );
+  const renderOnLinkBtn = (css = "", btnCss = "") => {
+    return (
+      <div className={`col-12 ${css}`}>
+        <button
+          className={`btn btn-primary ${btnCss}`}
+          onClick={() => onLink(productId)}
+        >
+          <i className="fas fa-archive mr-2 d-none d-sm-inline" />
+          Store Product
+        </button>
+      </div>
+    );
+  };
 
   const renderBreadCrumb = ({ storageId, rackId, shelfId, spotId }) => {
     return (
@@ -61,8 +65,14 @@ const LocationCard = ({
   if (!haveLocation) {
     content = (
       <div>
-        <div className="row">
-          <div className="col-12">{onLinkBtn}</div>
+        <div className="row mb-3">
+          <div className="col-12 d-none d-sm-block">
+            {renderOnLinkBtn("d-flex justify-content-sm-end", "mr-2")}
+          </div>
+
+          <div className="col-12 d-block d-sm-none">
+            {renderOnLinkBtn("d-flex flex-column", "mb-3")}
+          </div>
         </div>
         <div className="row">
           <div className="col-12">
@@ -88,33 +98,41 @@ const LocationCard = ({
     const { kind, breadcrumb } = productLocationObj;
 
     // render html -----------------------------------
-    const onUnLinkBtn = (
-      <span>
-        <button
-          className="btn btn-primary float-right mr-1"
-          onClick={() => onUnLink(productId, kind)}
-        >
-          <i className="fas fa-hand-paper mr-2 " />
-          Retrieve Product
-        </button>
+    const renderOnUnLinkBtn = (css = "", btnCss = "") => {
+      return (
+        <div className={`col-12 ${css}`}>
+          <button
+            className={`btn btn-secondary ${btnCss}`}
+            onClick={() => onLink(productId)}
+          >
+            <i className="fas fa-archive mr-2 d-none d-sm-inline" />
+            Restore Product
+          </button>
 
-        <button
-          className="btn btn-secondary float-right mr-1"
-          onClick={() => onLink(productId)}
-        >
-          <i className="fas fa-archive mr-2" />
-          Restore Product
-        </button>
-      </span>
-    );
+          <button
+            className={`btn btn-primary ${btnCss}`}
+            onClick={() => onUnLink(productId, kind)}
+          >
+            <i className="fas fa-hand-paper mr-2 d-none d-sm-inline" />
+            Retrieve Product
+          </button>
+        </div>
+      );
+    };
 
     const { spotId, type, storageId, rackId, shelfId } = breadcrumb;
 
     // set the content
     content = (
       <div>
-        <div className="row">
-          <div className="col-12">{onUnLinkBtn}</div>
+        <div className="row mb-3">
+          <div className="col-12 d-none d-sm-block">
+            {renderOnUnLinkBtn("d-flex justify-content-sm-end", "mr-2")}
+          </div>
+
+          <div className="col-12 d-block d-sm-none">
+            {renderOnUnLinkBtn("d-flex flex-column", "mb-2")}
+          </div>
         </div>
         <div className="row">
           <div className="col-12">

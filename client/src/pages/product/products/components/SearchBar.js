@@ -32,7 +32,7 @@ const SearchBar = ({
 }) => {
   return (
     <div className="row mb-3">
-      <div className="col-12 d-flex">
+      <div className="col-12 d-flex flex-wrap mx-auto align-items-center">
         <SelectInput
           searchOption={searchOption}
           info="Select an option to search by."

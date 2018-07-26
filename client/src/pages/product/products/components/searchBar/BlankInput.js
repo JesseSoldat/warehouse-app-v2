@@ -3,7 +3,7 @@ import React from "react";
 // this is used for a placeholder
 const BlankInput = ({ placeholder = "", valueErr = "", info = "" }) => {
   return (
-    <div className="col-xs-12 col-md-5 d-inline-block py-0 my-0">
+    <div className="col-xs-12 col-md-5 d-inline-block py-2 my-0">
       <span>
         <label className="p-0 m-0">
           <small />

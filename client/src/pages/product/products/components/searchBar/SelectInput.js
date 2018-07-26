@@ -11,7 +11,7 @@ const SelectInput = ({ searchOption, info, onChangeSearchOption }) => {
   ));
 
   return (
-    <div className="col-xs-12 col-md-4 d-inline-block py-0 my-0">
+    <div className="col-xs-12 col-md-4 d-inline-block py-2 my-0">
       <span>
         <label className="p-0 m-0">
           <small />

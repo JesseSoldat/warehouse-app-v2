@@ -30,6 +30,7 @@ class Products extends Component {
     orphanSearch: false
   };
 
+  // lifecycles -------------------------------------
   componentDidMount() {
     const { query } = this.props;
     // fetch the products using inital  query params

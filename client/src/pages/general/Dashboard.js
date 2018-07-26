@@ -51,7 +51,7 @@ class Dashboard extends Component {
                   Get starting by adding some products
                 </p>
                 <Link className="card-link" to="/products/create">
-                  <button className="btn btn-default">Create Product!</button>
+                  Create Product!
                 </Link>
               </div>
             </div>
@@ -64,7 +64,7 @@ class Dashboard extends Component {
                 <h5 className="card-title text-center pt-2">Maintenance</h5>
                 <p className="card-text">Create and edit Storage places here</p>
                 <Link className="card-link" to="/storages">
-                  <button className="btn btn-default">Go!</button>
+                  Go!
                 </Link>
               </div>
             </div>
