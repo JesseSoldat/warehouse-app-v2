@@ -13,12 +13,11 @@ const randomMinMaxNum = require("./helpers/randomMinMaxNum");
 const dropCollections = require("./helpers/dropCollections");
 
 const STORAGES_TO_ADD = 3;
-const RACKS_TO_ADD = randomMinMaxNum(2, 6);
-const SHELVES_TO_ADD = randomMinMaxNum(2, 6);
-const SHELFSPOTS_TO_ADD = randomMinMaxNum(2, 6);
 
 // create ------------------------------
 const createShelfSpots = async shelfId => {
+  const SHELFSPOTS_TO_ADD = randomMinMaxNum(2, 7);
+
   const shelfSpotsIds = [];
   let times = 0;
 
@@ -46,6 +45,8 @@ const createShelfSpots = async shelfId => {
 };
 
 const createShelves = async rackId => {
+  const SHELVES_TO_ADD = randomMinMaxNum(2, 7);
+
   const shelfIds = [];
   let times = 0;
 
@@ -75,6 +76,8 @@ const createShelves = async rackId => {
 };
 
 const createRacks = async storageId => {
+  const RACKS_TO_ADD = randomMinMaxNum(2, 7);
+
   const rackIds = [];
   let times = 0;
 
@@ -139,7 +142,7 @@ module.exports = seedStorages = async () => {
       ++times;
       await createStorages();
     }
-    console.log("done");
+    console.log("storage seed done");
   } catch (err) {
     console.log("An error occured while seeding the Storage collection.");
   }

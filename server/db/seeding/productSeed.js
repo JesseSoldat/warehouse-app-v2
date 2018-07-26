@@ -8,7 +8,7 @@ const randomDate = require("./helpers/randomDates");
 const dropCollections = require("./helpers/dropCollections");
 const generateArray = require("./helpers/generateArray");
 
-const PRODUCTS_TO_ADD = 22;
+const PRODUCTS_TO_ADD = 150;
 
 const createProducts = labelNumber => ({
   productLabel: labelNumber + 1000, //unique

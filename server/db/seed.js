@@ -8,13 +8,16 @@ const linkProductsToCustomerAndProducer = require("./seeding/linkProductsToCusto
 const linkProductsToBoxAndSpot = require("./seeding/linkProductsToBoxAndSpot");
 
 const seedDb = async () => {
+  console.log("starting to seed DB");
+
   try {
     //#1 first step ----------------------------
-    // await seedProducts();
-    // await seedProducer();
-    // await seedCustomer();
-    // await storageSeed();
-    // await boxSeed();
+    await seedProducer();
+    await seedCustomer();
+    await seedProducts();
+
+    await storageSeed();
+    await boxSeed();
 
     // TODO set it up so they can all run
     // BUG products are not linked to box only shelf spot
@@ -30,4 +33,4 @@ const seedDb = async () => {
 };
 
 // Uncomment to seed db
-// seedDb();
+seedDb();

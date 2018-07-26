@@ -13,11 +13,8 @@ const ShelfSpotTable = ({ storage }) => {
   const getTableHead = () => (
     <thead>
       <tr>
-        <th scope="col">
-          {storedItems.length === 0 ? "No Items stored yet" : "#"}
-        </th>
         {storedItems.length === 0 ? (
-          <th />
+          <th scope="col">No Items stored yet</th>
         ) : (
           storedItems.map((item, i) => (
             <th key={`item-headrow-${i}`} scope="col">
@@ -68,8 +65,6 @@ const ShelfSpotTable = ({ storage }) => {
       <tbody>
         {bodyData.map((rowData, rowIndex) => (
           <tr key={`rowData-${rowIndex}`}>
-            {/* empty first cell as spots start at 2nd column */}
-            <td />
             {rowData.map((cellData, cellIndex) => rowData[cellIndex])}
           </tr>
         ))}
