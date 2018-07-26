@@ -5,7 +5,7 @@ import capitalizeEachWordOfString from "../utils/stringManipulation/capitalizeEa
 
 const Heading = ({ title }) => {
   return (
-    <div className="row">
+    <div className="row mb-3">
       <div className="col-12">
         <h1
           className=" text-center pb-2 d-block d-sm-none"

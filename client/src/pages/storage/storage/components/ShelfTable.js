@@ -59,7 +59,9 @@ const ShelfTable = ({ storage, storageType, rack }) => {
         </div>
       </div>
 
-      <table className="table table-striped mt-1 mb-5">{getTableHead()}</table>
+      <div className="table-responsive-xs table-responsive-sm mt-1 mb-5">
+        <table className="table table-striped col-12">{getTableHead()}</table>
+      </div>
     </div>
   );
 };

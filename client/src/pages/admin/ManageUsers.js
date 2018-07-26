@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+// common components
+import Message from "../../components/Message";
+import Heading from "../../components/Heading";
+import Spinner from "../../components/Spinner";
+// custom components
+import UserTable from "./components/UserTable";
 // utils
 import clearUiMsg from "../../utils/clearUiMsg";
 // actions
@@ -9,6 +15,7 @@ import { serverMsg } from "../../actions/ui";
 import { startGetAllUsers } from "../../actions/admin";
 
 class ManageUsers extends Component {
+  // lifecycles -----------------------------------------
   componentDidMount() {
     this.getAllUser();
   }
@@ -19,17 +26,52 @@ class ManageUsers extends Component {
     changeRoute("/admin/manageUsers");
   }
 
+  // api calls ---------------------------------------------
   getAllUser = () => {
     this.props.startGetAllUsers();
   };
 
+  // cb for child components
+  createNewUser = () => {};
+
+  handleChange = () => {};
+
+  handleDelete = () => {};
+
   render() {
-    return <div />;
+    const { loading, users } = this.props;
+
+    let content;
+
+    if (loading) {
+      content = <Spinner />;
+    } else if (!loading && !users.length) {
+      content = <h1>No Users</h1>;
+    } else {
+      content = (
+        <UserTable
+          users={users}
+          createNewUser={this.createNewUser}
+          handleChange={this.handleChange}
+          handleDelete={this.handleDelete}
+        />
+      );
+    }
+
+    return (
+      <div className="container mb-5">
+        <Message />
+        <Heading title="User management" />
+        {content}
+      </div>
+    );
   }
 }
 
-const mapStateToProps = ({ ui }) => ({
+const mapStateToProps = ({ ui, admin }) => ({
   msg: ui.msg,
+  users: admin.allUsers,
+  loading: ui.loading,
   options: ui.options
 });
 

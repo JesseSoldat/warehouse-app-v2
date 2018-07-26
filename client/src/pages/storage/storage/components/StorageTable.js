@@ -79,10 +79,12 @@ const StorageTable = ({ storage = null, storageType = null }) => {
       </div>
       <p className="ml-3">{description}</p>
 
-      <table className="table table-striped mb-5">
-        {tableHead()}
-        {tableBody()}
-      </table>
+      <div className="table-responsive-xs table-responsive-sm mb-5">
+        <table className="table table-striped col-12">
+          {tableHead()}
+          {tableBody()}
+        </table>
+      </div>
     </div>
   );
 };

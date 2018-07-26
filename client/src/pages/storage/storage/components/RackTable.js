@@ -90,10 +90,12 @@ const RackTable = ({ storage, storageType }) => {
         )}
       </div>
 
-      <table className="table table-striped mb-5">
-        {getTableHead()}
-        {getTableBody()}
-      </table>
+      <div className="table-responsive-xs table-responsive-sm mb-5">
+        <table className="table table-striped col-12">
+          {getTableHead()}
+          {getTableBody()}
+        </table>
+      </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { GET_ALL_USERS } from "../actions/admin";
 
 const initialState = {
-  allUsers: null
+  allUsers: []
 };
 
 export default (state = initialState, action) => {
