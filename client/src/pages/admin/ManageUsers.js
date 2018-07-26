@@ -34,9 +34,13 @@ class ManageUsers extends Component {
   // cb for child components
   createNewUser = () => {};
 
-  handleChange = () => {};
+  handleChange = (email, newRole) => {
+    console.log(email, newRole);
+  };
 
-  handleDelete = () => {};
+  handleDelete = email => {
+    console.log(email);
+  };
 
   render() {
     const { loading, users } = this.props;

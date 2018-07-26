@@ -7,7 +7,8 @@ import isEmpty from "../../../../utils/validation/isEmpty";
 const RackTable = ({ storage, storageType }) => {
   const { _id, rackLabel, shelves = [] } = storage;
 
-  console.log(storage);
+  // console.log('Rack Table');
+  // console.log(storage);
 
   let max = 0;
 
@@ -32,8 +33,8 @@ const RackTable = ({ storage, storageType }) => {
           </th>
         ) : (
           [...Array(max).keys()].map(key => (
-            <th key={`spot-headrow${key}`} scope="col">
-              Spot {key}
+            <th key={`spot-headrow${key + 1}`} scope="col">
+              Spot {key + 1}
             </th>
           ))
         )}

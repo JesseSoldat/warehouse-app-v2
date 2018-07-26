@@ -13,7 +13,7 @@ const storageApiUrl = type => {
       apiUrl = "/api/shelves";
       break;
 
-    case "spot":
+    case "shelfSpot":
       apiUrl = "/api/shelfSpots";
       break;
 

@@ -53,9 +53,10 @@ UserSchema.methods.toJSON = function() {
     _id,
     tokens,
     verificationToken,
-    isVerified
+    isVerified,
+    role
   } = userObj;
-  return { username, email, _id, tokens, verificationToken, isVerified };
+  return { username, email, _id, tokens, verificationToken, isVerified, role };
 };
 
 UserSchema.pre("save", function(next) {

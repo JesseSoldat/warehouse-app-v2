@@ -10,7 +10,6 @@ const StoragesTable = ({
 }) => {
   let maxShelves = 0;
 
-  console.log(racks);
   // Figure out how many columns the table needs
   for (let rack of racks) {
     const length = rack.shelves.length;

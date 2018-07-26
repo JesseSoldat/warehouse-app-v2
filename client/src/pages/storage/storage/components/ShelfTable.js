@@ -7,6 +7,9 @@ import isEmpty from "../../../../utils/validation/isEmpty";
 const ShelfTable = ({ storage, storageType, rack }) => {
   const { _id, shelfLabel, shelfSpots = [] } = storage;
 
+  // console.log("shelf");
+  // console.log(storage);
+
   let max = 0;
 
   for (let spot of shelfSpots) {
@@ -29,13 +32,71 @@ const ShelfTable = ({ storage, storageType, rack }) => {
         ) : (
           shelfSpots.map(({ _id: spotId = "", spotLabel = "" }, i) => (
             <th scope="row" key={`spot-head-${i}`}>
-              <Link to={`/storages/${spotId}?type=spot`}>Spot {spotLabel}</Link>
+              <Link to={`/storages/${spotId}?type=shelfSpot`}>
+                Spot {spotLabel}
+              </Link>
             </th>
           ))
         )}
       </tr>
     </thead>
   );
+
+  const getTableCell = (item, kind, spotIndex, itemIndex) => (
+    <td key={`cellData-${spotIndex + itemIndex}`}>
+      <Link
+        to={`/${kind === "product" ? "products" : "storages"}/${item._id}${
+          kind === "product" ? "" : "?type=box"
+        }`}
+      >
+        {kind === "product" ? item.productName : `Box ${item.boxLabel}`}
+      </Link>
+    </td>
+  );
+
+  const getTableBody = () => {
+    // No Spots
+    if (shelfSpots.length === 0) {
+      return (
+        <tbody>
+          <tr>
+            <td>No Shelf Spots Yet!</td>
+          </tr>
+        </tbody>
+      );
+    }
+
+    // Have Spots
+
+    const bodyData = [];
+
+    shelfSpots.forEach((spot, spotIndex) => {
+      spot.storedItems.forEach(({ kind, item }, itemIndex) => {
+        if (!item || !kind) return;
+
+        // create an array
+        if (!bodyData[itemIndex]) bodyData[itemIndex] = [];
+
+        // push data to the current index of the loop
+        bodyData[itemIndex].push(
+          getTableCell(item, kind, spotIndex, itemIndex)
+        );
+      });
+    });
+
+    return (
+      <tbody>
+        {bodyData.map((rowData, i) => (
+          <tr key={`rowData-${i}`}>
+            {/* empty first cell as spots start at 2nd column */}
+            <td />
+
+            {rowData.map((cellData, i) => rowData[i])}
+          </tr>
+        ))}
+      </tbody>
+    );
+  };
 
   return (
     <div className="card card-body mb-3">
@@ -60,7 +121,10 @@ const ShelfTable = ({ storage, storageType, rack }) => {
       </div>
 
       <div className="table-responsive-xs table-responsive-sm mt-1 mb-5">
-        <table className="table table-striped col-12">{getTableHead()}</table>
+        <table className="table table-striped col-12">
+          {getTableHead()}
+          {getTableBody()}
+        </table>
       </div>
     </div>
   );

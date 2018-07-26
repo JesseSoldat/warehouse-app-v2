@@ -23,8 +23,7 @@ class Storages extends Component {
 
     if (loading) {
       content = <Spinner />;
-    } else if (!storages || storages.length < 1) {
-      console.log("no storage");
+    } else if (!loading && storages.length < 1) {
     } else {
       content = (
         <div className="row">

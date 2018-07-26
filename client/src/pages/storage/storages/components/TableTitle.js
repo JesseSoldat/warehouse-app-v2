@@ -9,7 +9,7 @@ const TableTitle = ({ storageLabel = "", description = "", id = "" }) => {
 
         <Link to={`/storages/${id}?type=storage`} className="pr-3">
           <button className="btn btn-default">
-            <i className="fas fa-eye mr2" />View Storage
+            <i className="fas fa-eye mr-2" />View Storage
           </button>
         </Link>
       </div>

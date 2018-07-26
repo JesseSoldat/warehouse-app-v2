@@ -13,9 +13,9 @@ const randomMinMaxNum = require("./helpers/randomMinMaxNum");
 const dropCollections = require("./helpers/dropCollections");
 
 const STORAGES_TO_ADD = 3;
-const RACKS_TO_ADD = randomMinMaxNum(2, 4);
-const SHELVES_TO_ADD = randomMinMaxNum(2, 4);
-const SHELFSPOTS_TO_ADD = randomMinMaxNum(2, 4);
+const RACKS_TO_ADD = randomMinMaxNum(2, 6);
+const SHELVES_TO_ADD = randomMinMaxNum(2, 6);
+const SHELFSPOTS_TO_ADD = randomMinMaxNum(2, 6);
 
 // create ------------------------------
 const createShelfSpots = async shelfId => {

@@ -31,6 +31,8 @@ class Storage extends Component {
     const { loading, storage } = this.props;
     const storageType = getUrlParameter("type");
 
+    const heading = storageType === "shelfSpot" ? "Shelf Spot" : storageType;
+
     let content;
 
     if (loading) {
@@ -47,7 +49,7 @@ class Storage extends Component {
     return (
       <div className="container">
         <Message cb={this.getStorage} />
-        <Heading title={`${capitalizeFirstLetter(storageType)} Details`} />
+        <Heading title={`${capitalizeFirstLetter(heading)} Details`} />
         {content}
       </div>
     );

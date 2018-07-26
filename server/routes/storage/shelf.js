@@ -8,7 +8,7 @@ const mergeObjFields = require("../../utils/mergeObjFields");
 
 module.exports = app => {
   // Get all shelves
-  app.get("/api/shelves", async (req, res, next) => {
+  app.get("/api/shelves", async (req, res) => {
     try {
       const shelves = await Shelf.find({});
 
@@ -22,7 +22,7 @@ module.exports = app => {
   });
 
   // Get a single shelf
-  app.get("/api/shelves/:shelfId", async (req, res, next) => {
+  app.get("/api/shelves/:shelfId", async (req, res) => {
     const { shelfId } = req.params;
 
     try {
@@ -47,7 +47,7 @@ module.exports = app => {
     }
   });
   // Create a new shelf inside a rack and link it to the rack
-  app.post("/api/shelves/:rackId", async (req, res, next) => {
+  app.post("/api/shelves/:rackId", async (req, res) => {
     let { rackId } = req.params;
     const shelf = new Shelf();
     shelf["rack"] = rackId;
@@ -76,7 +76,7 @@ module.exports = app => {
     }
   });
   // Update a shelf
-  app.patch("/api/shelves/:shelfId", async (req, res, next) => {
+  app.patch("/api/shelves/:shelfId", async (req, res) => {
     const { shelfId } = req.params;
     try {
       const shelf = await Shelf.findByIdAndUpdate(
