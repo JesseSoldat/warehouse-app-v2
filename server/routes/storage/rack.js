@@ -5,7 +5,7 @@ const Rack = require("../../models/storage/rack");
 const isAuth = require("../../middleware/isAuth");
 // utils
 const { msgObj, serverRes } = require("../../utils/serverRes");
-const { serverMsg } = require("../../utils/serverMsg");
+const serverMsg = require("../../utils/serverMsg");
 const mergeObjFields = require("../../utils/mergeObjFields");
 
 module.exports = app => {
@@ -44,10 +44,11 @@ module.exports = app => {
   // Create new rack inside storage and link the rack to storage
   app.post("/api/racks/:storageId", async (req, res, next) => {
     const { storageId } = req.params;
-    const rack = new Rack();
+    const rack = new Rack(req.body);
+
     rack["storage"] = storageId;
+
     try {
-      rack["rackLabel"] = await Storage.getRackLabel(storageId);
       await rack.save();
 
       const storage = await Storage.findByIdAndUpdate(

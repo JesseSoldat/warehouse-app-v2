@@ -3,7 +3,7 @@ const Rack = require("../../models/storage/rack");
 const Shelf = require("../../models/storage/shelf");
 // utils
 const { serverRes, msgObj } = require("../../utils/serverRes");
-const { serverMsg } = require("../../utils/serverMsg");
+const serverMsg = require("../../utils/serverMsg");
 const mergeObjFields = require("../../utils/mergeObjFields");
 
 module.exports = app => {
@@ -49,11 +49,11 @@ module.exports = app => {
   // Create a new shelf inside a rack and link it to the rack
   app.post("/api/shelves/:rackId", async (req, res) => {
     let { rackId } = req.params;
-    const shelf = new Shelf();
+    const shelf = new Shelf(req.body);
+
     shelf["rack"] = rackId;
 
     try {
-      shelf["shelfLabel"] = await Rack.getShelfLabel(rackId);
       await shelf.save();
 
       const rack = await Rack.findByIdAndUpdate(

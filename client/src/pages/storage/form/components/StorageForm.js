@@ -32,7 +32,7 @@ class StorageForm extends Component {
     e.preventDefault();
     const { storageType, formType, handleSubmit } = this.props;
 
-    const { isValid, errsObj } = validateForm(
+    const { isValid, errsObj, form } = validateForm(
       storageType,
       formType,
       this.state
@@ -40,7 +40,10 @@ class StorageForm extends Component {
 
     if (!isValid) {
       this.setState({ ...errsObj });
+      return;
     }
+
+    handleSubmit(form);
   };
 
   // events ---------------------------------------

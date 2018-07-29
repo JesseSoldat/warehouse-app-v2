@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const RackSchema = new Schema(
   {
-    rackLabel: { type: Number, required: true },
+    rackLabel: { type: String, required: true },
     storage: {
       type: Schema.Types.ObjectId,
       ref: "storage"

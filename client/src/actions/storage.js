@@ -63,7 +63,9 @@ export const startCreateStorage = (
   id,
   history
 ) => async dispatch => {
-  const apiUrl = `${storageApiUrl(type)}`;
+  const apiUrl = `${storageApiUrl(type)}/${id}`;
+
+  console.log(apiUrl);
 
   try {
     const res = await axios.post(apiUrl, storage);

@@ -18,6 +18,7 @@ class StorageCreate extends Component {
     const { match, history, startCreateStorage } = this.props;
     const { id } = match.params;
     const type = getUrlParameter("type");
+
     startCreateStorage(form, type, id, history);
   };
 

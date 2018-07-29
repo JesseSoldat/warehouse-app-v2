@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const ShelfSchema = new Schema(
   {
-    shelfLabel: { type: Number, required: true },
+    shelfLabel: { type: String, required: true },
     rack: {
       type: Schema.Types.ObjectId,
       ref: "rack"

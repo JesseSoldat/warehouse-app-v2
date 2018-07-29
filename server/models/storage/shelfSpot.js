@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const ShelfSpotSchema = new Schema(
   {
-    spotLabel: { type: Number, required: true },
+    spotLabel: { type: String, required: true },
     shelf: {
       type: Schema.Types.ObjectId,
       ref: "shelf"

@@ -2,7 +2,10 @@ import storageFieldData from "./storageFieldData";
 
 const validateForm = (storageType, formType, state) => {
   let isValid = true;
+  // create err msg for empty fields
   const errsObj = {};
+  // create the form to be sent
+  const form = {};
 
   let storage = storageFieldData[storageType];
   if (formType === "create") {
@@ -11,19 +14,19 @@ const validateForm = (storageType, formType, state) => {
     storage = storage.filter(obj => obj.err !== null);
   }
 
-  // console.log(storage);
-
   storage.forEach(obj => {
-    const value = state[obj.name];
+    const name = obj.name;
+    const value = state[name];
+
+    form[name] = value;
+
     if (value === "") {
       isValid = false;
       errsObj[obj.err] = obj.msg;
     }
   });
 
-  console.log(errsObj);
-
-  return { isValid, errsObj };
+  return { isValid, errsObj, form };
 };
 
 export default validateForm;

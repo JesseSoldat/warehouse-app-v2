@@ -4,7 +4,7 @@ const ShelfSpot = require("../../models/storage/shelfSpot");
 // utils
 // utils
 const { serverRes, msgObj } = require("../../utils/serverRes");
-const { serverMsg } = require("../../utils/serverMsg");
+const serverMsg = require("../../utils/serverMsg");
 const mergeObjFields = require("../../utils/mergeObjFields");
 
 module.exports = app => {
@@ -49,11 +49,10 @@ module.exports = app => {
   // Create a new shelfSpot and link it to its shelf
   app.post("/api/shelfSpots/:shelfId", async (req, res, next) => {
     const { shelfId } = req.params;
-    const shelfSpot = new ShelfSpot();
+    const shelfSpot = new ShelfSpot(req.body);
     shelfSpot["shelf"] = shelfId;
 
     try {
-      shelfSpot["spotLabel"] = await Shelf.getShelfSpotLabel(shelfId);
       await shelfSpot.save();
 
       const shelf = await Shelf.findByIdAndUpdate(
