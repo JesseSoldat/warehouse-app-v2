@@ -47,6 +47,8 @@ module.exports = app => {
   });
   // Create new warehouse storage
   app.post("/api/storages", async (req, res, next) => {
+    console.log("storage route");
+
     const storage = new Storage(req.body);
     try {
       await storage.save();

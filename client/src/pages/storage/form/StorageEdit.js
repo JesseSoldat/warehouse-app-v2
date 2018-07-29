@@ -26,7 +26,6 @@ class StorageEdit extends Component {
 
   // cb ---------------------------------------------
   handleSubmit = form => {
-    console.log("form", form);
     const { startEditStorage, match, history } = this.props;
     const id = match.params.id;
     const type = getUrlParameter("type");

@@ -19,12 +19,22 @@ class Storages extends Component {
   render() {
     const { loading, storages } = this.props;
 
-    let content;
+    let content, button;
 
     if (loading) {
       content = <Spinner />;
     } else if (!loading && storages.length < 1) {
     } else {
+      button = (
+        <div className="row">
+          <Link to="/storages/create/storage?type=storage">
+            <button className="btn btn-default ml-4">
+              <i className="fas fa-plus-circle mr-2" />
+              Create new Storage
+            </button>
+          </Link>
+        </div>
+      );
       content = (
         <div className="row">
           {storages.map((storage, i) => (
@@ -38,6 +48,7 @@ class Storages extends Component {
       <div className="container">
         <Message />
         <Heading title="Storages" />
+        {button}
         {content}
       </div>
     );

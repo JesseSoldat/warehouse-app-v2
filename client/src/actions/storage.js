@@ -38,7 +38,7 @@ export const getStorage = (storage = null, storageType = "") => ({
   storageType
 });
 
-export const startGetStorage = (id, storageType) => async dispatch => {
+export const startGetStorage = (id = "", storageType) => async dispatch => {
   dispatch(loading(true));
 
   const apiUrl = `${storageApiUrl(storageType)}/${id}`;
@@ -63,7 +63,12 @@ export const startCreateStorage = (
   id,
   history
 ) => async dispatch => {
+  console.log("type", type);
+  console.log("id", id);
+
   const apiUrl = `${storageApiUrl(type)}/${id}`;
+
+  console.log(apiUrl);
 
   try {
     const res = await axios.post(apiUrl, storage);

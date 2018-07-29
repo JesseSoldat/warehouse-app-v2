@@ -16,7 +16,10 @@ class StorageCreate extends Component {
   // api calls ------------------
   handleSubmit = form => {
     const { match, history, startCreateStorage } = this.props;
-    const { id } = match.params;
+
+    // when creating a storage it will not need an id
+    let id = match.params.id === "storage" ? "" : match.params.id;
+
     const type = getUrlParameter("type");
 
     startCreateStorage(form, type, id, history);
