@@ -27,25 +27,39 @@ class StorageCreate extends Component {
 
     const type = getUrlParameter("type");
 
+    const defaultState = {
+      storageLabel: "",
+      description: "",
+      rackLabel: "",
+      shelfLabel: "",
+      spotLabel: "",
+      boxLabel: ""
+    };
+
     let content;
 
     if (loading) {
       let content = <Spinner />;
-    }
-
-    return (
-      <div className="container">
-        <Message />
-        <Heading title={`Create ${type}`} />
+    } else {
+      content = (
         <div className="row">
           <div className="col-xs-12 col-md-8 m-auto">
             <StorageForm
               storageType={type}
               formType="create"
               handleSubmit={this.handleSubmit}
+              defaultState={defaultState}
             />
           </div>
         </div>
+      );
+    }
+
+    return (
+      <div className="container">
+        <Message />
+        <Heading title={`Create ${type}`} />
+        {content}
       </div>
     );
   }

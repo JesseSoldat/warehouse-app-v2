@@ -9,23 +9,19 @@ import capitalizeFirstLetter from "../../../../utils/stringManipulation/capitali
 
 class StorageForm extends Component {
   state = {
-    storageLabel: "",
+    storageLabel: this.props.defaultState.storageLabel,
     storageLabelErr: "",
-    description: "",
-    rackLabel: "",
+    description: this.props.defaultState.description,
+    descriptionErr: "",
+    rackLabel: this.props.defaultState.rackLabel,
     rackLabelErr: "",
-    shelfLabel: "",
+    shelfLabel: this.props.defaultState.shelfLabel,
     shelfLabelErr: "",
-    spotLabel: "",
+    spotLabel: this.props.defaultState.spotLabel,
     spotLabelErr: "",
-    boxLabel: "",
+    boxLabel: this.props.defaultState.boxLabel,
     boxLabelErr: ""
   };
-
-  // lifecycle ---------------------------------
-  componentDidMount() {
-    const { formType, storageType } = this.props;
-  }
 
   // cb --------------------------------------
   onSubmit = e => {

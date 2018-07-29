@@ -46,7 +46,7 @@ module.exports = app => {
     }
   });
   // Create new warehouse storage
-  app.post("/api/storage", async (req, res, next) => {
+  app.post("/api/storages", async (req, res, next) => {
     const storage = new Storage(req.body);
     try {
       await storage.save();
@@ -60,8 +60,9 @@ module.exports = app => {
     }
   });
   // Update a storage
-  app.patch("/api/storage/:storageId", async (req, res, next) => {
+  app.patch("/api/storages/:storageId", async (req, res) => {
     const { storageId } = req.params;
+
     try {
       const storage = await Storage.findByIdAndUpdate(
         storageId,
