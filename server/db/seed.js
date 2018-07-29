@@ -24,7 +24,7 @@ const seedDb = async () => {
     // unless ran in two steps
     //#2 second step ---------------------------
     // await linkBoxesToShelfSpots();
-    // await linkProductsToCustomerAndProducer();
+    // NOT NEEDED? await linkProductsToCustomerAndProducer();
     // await linkProductsToBoxAndSpot();
     console.log("done with seed");
   } catch (err) {
@@ -33,4 +33,4 @@ const seedDb = async () => {
 };
 
 // Uncomment to seed db
-seedDb();
+// seedDb();

@@ -26,7 +26,7 @@ const StoragesTable = ({
         />
         <div className="table-responsive-xs table-responsive-sm">
           <table className="table table-striped col-12">
-            <TableHead maxShelves={maxShelves} />
+            <TableHead maxShelves={maxShelves} id={_id} />
             <TableBody racks={racks} />
           </table>
         </div>

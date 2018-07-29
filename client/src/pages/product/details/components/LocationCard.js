@@ -55,7 +55,7 @@ const LocationCard = ({
           <Link to={`/storages/${shelfId}?type=shelf`}>Shelf</Link>
         </li>
         <li>
-          <Link to={`/storages/${spotId}?type=spot`}>Shelf Spot</Link>
+          <Link to={`/storages/${spotId}?type=shelfSpot`}>Shelf Spot</Link>
         </li>
       </ul>
     );

@@ -16,13 +16,11 @@ const ShelfSpotTable = ({ storage }) => {
         {storedItems.length === 0 ? (
           <th scope="col">No Items stored yet</th>
         ) : (
-          storedItems.map((item, i) => (
-            <th key={`item-headrow-${i}`} scope="col">
-              {`${storedItems.length} Item${
-                storedItems.length === 1 ? "" : "s"
-              } stored`}
-            </th>
-          ))
+          <th scope="col">
+            {`${storedItems.length} Item${
+              storedItems.length === 1 ? "" : "s"
+            } stored`}
+          </th>
         )}
       </tr>
     </thead>
@@ -79,14 +77,14 @@ const ShelfSpotTable = ({ storage }) => {
 
         <div>
           <Link to={`/storages/edit/${_id}?type=shelfSpot`}>
-            <button className="btn btn-secondary m-1">
+            <button className="btn btn-default m-1">
               <i className="fas fa-edit mr-2" /> Edit Spot
             </button>
           </Link>
 
           {!isEmpty(shelf) && (
             <Link to={`/storages/${shelf._id}?type=shelf`}>
-              <button className="btn btn-secondary m-1">
+              <button className="btn btn-default m-1">
                 <i className="fas fa-arrow-up mr-2" /> View Shelf
               </button>
             </Link>
