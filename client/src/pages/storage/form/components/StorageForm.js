@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 // custom components
 import FieldList from "./FieldList";
+// helpers
+import validateForm from "../helpers/validateForm";
 // utils
 import capitalizeFirstLetter from "../../../../utils/stringManipulation/capitalizeFirstLetter";
 
@@ -28,19 +30,24 @@ class StorageForm extends Component {
   // cb --------------------------------------
   onSubmit = e => {
     e.preventDefault();
-    const { storageType, handleSubmit } = this.props;
+    const { storageType, formType, handleSubmit } = this.props;
 
-    const isValid = true;
+    const { isValid, errsObj } = validateForm(
+      storageType,
+      formType,
+      this.state
+    );
 
-    if (isValid) {
+    if (!isValid) {
+      this.setState({ ...errsObj });
     }
   };
 
   // events ---------------------------------------
   onChange = e => {
     const { name, value } = e.target;
-
-    this.setState({ [name]: value });
+    const err = `${name}Err`;
+    this.setState({ [name]: value, [err]: null });
   };
 
   render() {
