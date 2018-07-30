@@ -23,7 +23,7 @@ module.exports = app => {
     }
   });
   // Get a single rack
-  app.get("/api/racks/:rackId", isAuth, async (req, res, next) => {
+  app.get("/api/racks/:rackId", isAuth, async (req, res) => {
     const { rackId } = req.params;
     try {
       const rack = await Rack.findById(rackId)
@@ -42,7 +42,7 @@ module.exports = app => {
     }
   });
   // Create new rack inside storage and link the rack to storage
-  app.post("/api/racks/:storageId", async (req, res, next) => {
+  app.post("/api/racks/:storageId", async (req, res) => {
     const { storageId } = req.params;
     const rack = new Rack(req.body);
 
@@ -71,7 +71,7 @@ module.exports = app => {
     }
   });
   // Update a rack
-  app.patch("/api/racks/:rackId", async (req, res, next) => {
+  app.patch("/api/racks/:rackId", async (req, res) => {
     const { rackId } = req.params;
     try {
       const rack = await Rack.findByIdAndUpdate(
@@ -86,6 +86,38 @@ module.exports = app => {
       console.log("Err: PATCH/api/rack/:rackId", err);
 
       const msg = serverMsg("error", "update", "rack", "update error");
+      serverRes(res, 400, msg, null);
+    }
+  });
+  // delete a rack
+  app.delete("/api/racks/:rackId", async (req, res) => {
+    const { rackId } = req.params;
+    try {
+      const rack = await Rack.findById(rackId);
+
+      if (rack.shelves.length !== 0) {
+        const msg = msgObj(
+          "Delete or relink all shelves of this rack first.",
+          "red"
+        );
+        return serverRes(res, 400, msg, rack);
+      }
+
+      const storageId = rack.storage;
+
+      await Promise.all([
+        Storage.findByIdAndUpdate(storageId, {
+          $pull: { racks: rackId }
+        }),
+        rack.remove()
+      ]);
+
+      const msg = msgObj("Rack deleted.", "green");
+      serverRes(res, 200, msg, rack);
+    } catch (err) {
+      console.log("Err: DELETE/api/racks/:rackId", err);
+
+      const msg = msgObj(errMsg("delete", "rack"), "red");
       serverRes(res, 400, msg, null);
     }
   });

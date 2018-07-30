@@ -6,12 +6,19 @@ import Storages from "../../pages/storage/storages/Storages";
 import Storage from "../../pages/storage/storage/Storage";
 import StorageCreate from "../../pages/storage/form/StorageCreate";
 import StorageEdit from "../../pages/storage/form/StorageEdit";
+import StorageSearch from "../../pages/storage/search/StorageSearch";
 
 const StorageRoutes = [
   <PrivateRoute
     key="/storages"
     path="/storages"
     component={Storages}
+    exact={true}
+  />,
+  <PrivateRoute
+    key="/storages/search"
+    path="/storages/search"
+    component={StorageSearch}
     exact={true}
   />,
   <PrivateRoute

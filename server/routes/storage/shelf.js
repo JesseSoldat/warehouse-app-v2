@@ -20,7 +20,6 @@ module.exports = app => {
       serverRes(res, 400, msg, null);
     }
   });
-
   // Get a single shelf
   app.get("/api/shelves/:shelfId", async (req, res) => {
     const { shelfId } = req.params;
@@ -91,6 +90,39 @@ module.exports = app => {
       console.log("Err: PATCH/api/shelf/:shelfId", err);
 
       const msg = serverMsg("error", "update", "shelf", "update error");
+      serverRes(res, 400, msg, null);
+    }
+  });
+  // delete a shelf
+  app.delete("/api/shelves/:shelfId", async (req, res) => {
+    const { shelfId } = req.params;
+    try {
+      let shelf = await Shelf.findById(shelfId);
+
+      // check for shelf spots
+      if (shelf.shelfSpots.length !== 0) {
+        const msg = msgObj(
+          "Delete or relink all shelf spots of this shelf first.",
+          "red"
+        );
+        return serverRes(res, 400, msg, shelf);
+      }
+
+      const rackId = shelf.rack;
+
+      await Promise.all([
+        Rack.findByIdAndUpdate(rackId, {
+          $pull: { shelves: shelfId }
+        }),
+        shelf.remove()
+      ]);
+
+      const msg = msgObj("Shelf deleted.", "green");
+      serverRes(res, 200, msg, shelf);
+    } catch (err) {
+      console.log("Err: DELETE/api/shelves/:shelfId", err);
+
+      const msg = msgObj(errMsg("delete", "shelf"), "red");
       serverRes(res, 400, msg, null);
     }
   });

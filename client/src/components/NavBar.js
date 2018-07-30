@@ -51,6 +51,9 @@ const NavBar = ({ isAuth, startLogout, history }) => {
           <Link className="dropdown-item" to="/customers/search">
             Customers
           </Link>
+          <Link className="dropdown-item" to="/storages/search">
+            Storages
+          </Link>
         </div>
       </li>
 
@@ -76,26 +79,19 @@ const NavBar = ({ isAuth, startLogout, history }) => {
           <Link className="dropdown-item" to="/customers/create">
             New Customer
           </Link>
+          <Link
+            className="dropdown-item"
+            to="/storages/create/storage?type=box"
+          >
+            New Storage Box
+          </Link>
         </div>
       </li>
 
-      <li className="nav-item dropdown mr-3 pb-sm-3 pb-md-0">
-        <Link
-          className="dropdown-toggle"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          to="/maintenance"
-        >
-          <i className="fas fa-wrench mr-2" />
-          Maintenance
+      <li className="nav-item mr-3 pb-sm-3 pb-md-0">
+        <Link to="/storages">
+          <i className="fas fa-archive mr-2" /> Storages
         </Link>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-          <Link className="dropdown-item" to="/storages">
-            Storage Places
-          </Link>
-        </div>
       </li>
 
       <li className="nav-item dropdown mr-3 pb-sm-3 pb-md-0">

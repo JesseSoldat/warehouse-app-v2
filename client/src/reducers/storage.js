@@ -1,4 +1,8 @@
-import { STORAGE_FETCH_ALL, STORAGE_FETCH_ONE } from "../actions/storage";
+import {
+  STORAGE_FETCH_ALL,
+  STORAGE_FETCH_ONE,
+  STORAGE_DELETE_ONE
+} from "../actions/storage";
 
 const initialState = {
   storages: [],
@@ -21,6 +25,9 @@ export default (state = initialState, action) => {
     case STORAGE_FETCH_ONE:
       // console.log("STORAGE_FETCH_ONE", action);
       return { ...state, storage, storageType };
+
+    case STORAGE_DELETE_ONE:
+      return { ...state, storage: null, storages: [] };
 
     default:
       return { ...state };

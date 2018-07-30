@@ -9,6 +9,7 @@ import { loading } from "./ui";
 // types
 export const STORAGE_FETCH_ALL = "STORAGE_FETCH_ALL";
 export const STORAGE_FETCH_ONE = "STORAGE_FETCH_ONE";
+export const STORAGE_DELETE_ONE = "STORAGE_DELETE_ONE";
 
 // GET Storages ---------------------------
 export const getStorages = (storages = []) => ({
@@ -63,12 +64,7 @@ export const startCreateStorage = (
   id,
   history
 ) => async dispatch => {
-  console.log("type", type);
-  console.log("id", id);
-
   const apiUrl = `${storageApiUrl(type)}/${id}`;
-
-  console.log(apiUrl);
 
   try {
     const res = await axios.post(apiUrl, storage);
@@ -78,6 +74,24 @@ export const startCreateStorage = (
     checkForMsg(msg, dispatch, options);
 
     let newItemId = "";
+
+    switch (type) {
+      case "storage":
+      case "box":
+        newItemId = payload._id;
+        break;
+
+      case "rack":
+      case "shelf":
+      case "spot":
+        newItemId = payload[type]._id;
+        break;
+
+      default:
+        break;
+    }
+
+    console.log("create payload", payload);
 
     history.push(`/storages/${newItemId}?type=${type}`);
   } catch (err) {
@@ -105,5 +119,29 @@ export const startEditStorage = (
     history.push(`/storages/${id}?type=${type}`);
   } catch (err) {
     axiosResponseErrorHandling(err, dispatch, "patch", `${type}`);
+  }
+};
+
+// Delete Storage ----------------------------------
+export const deleteStorage = () => ({
+  type: STORAGE_DELETE_ONE
+});
+
+export const startDeleteStorage = (type, id, history) => async dispatch => {
+  try {
+    const apiUrl = `${storageApiUrl(type)}/${id}`;
+    console.log(apiUrl);
+
+    const res = await axios.delete(apiUrl);
+
+    const { msg, options } = res.data;
+
+    dispatch(deleteStorage());
+
+    checkForMsg(msg, dispatch, options);
+
+    history.push(`/storages`);
+  } catch (err) {
+    axiosResponseErrorHandling(err, dispatch, "delete", `${type}`);
   }
 };

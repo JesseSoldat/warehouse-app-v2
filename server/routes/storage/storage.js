@@ -46,7 +46,7 @@ module.exports = app => {
     }
   });
   // Create new warehouse storage
-  app.post("/api/storages", async (req, res, next) => {
+  app.post("/api/storages", async (req, res) => {
     console.log("storage route");
 
     const storage = new Storage(req.body);
@@ -81,4 +81,29 @@ module.exports = app => {
     }
   });
   // Delete storage
+  app.delete("/api/storages/:storageId", async (req, res) => {
+    const { storageId } = req.params;
+    try {
+      const storage = await Storage.findById(storageId);
+      console.log(storage);
+
+      if (storage.racks.length !== 0) {
+        const msg = msgObj(
+          "Delete or relink all racks of this storage first.",
+          "red"
+        );
+        return serverRes(res, 400, msg, rack);
+      }
+
+      await storage.remove();
+
+      const msg = msgObj("Storage deleted.", "green");
+      serverRes(res, 200, msg, storage);
+    } catch (err) {
+      console.log("Err: DELETE/api/storages/:storageId", err);
+
+      const msg = msgObj(errMsg("delete", "storage"), "red");
+      serverRes(res, 400, msg, null);
+    }
+  });
 };

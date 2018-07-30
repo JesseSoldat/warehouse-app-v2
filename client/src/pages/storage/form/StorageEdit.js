@@ -9,8 +9,13 @@ import Heading from "../../../components/Heading";
 import StorageForm from "./components/StorageForm";
 // utils
 import getUrlParameter from "../../../utils/getUrlParameter";
+import capitalizeFirstLetter from "../../../utils/stringManipulation/capitalizeFirstLetter";
 // actions
-import { startGetStorage, startEditStorage } from "../../../actions/storage";
+import {
+  startGetStorage,
+  startEditStorage,
+  startDeleteStorage
+} from "../../../actions/storage";
 
 class StorageEdit extends Component {
   state = { type: "", id: "" };
@@ -33,6 +38,13 @@ class StorageEdit extends Component {
     startEditStorage(form, type, id, history);
   };
 
+  handleDelete = () => {
+    const { startDeleteStorage, match, history } = this.props;
+    const id = match.params.id;
+    const type = getUrlParameter("type");
+    startDeleteStorage(type, id, history);
+  };
+
   render() {
     const { loading, storage } = this.props;
     const type = getUrlParameter("type");
@@ -46,7 +58,7 @@ class StorageEdit extends Component {
       boxLabel: ""
     };
 
-    let content;
+    let content, button;
 
     if (loading) {
       content = <Spinner />;
@@ -78,6 +90,17 @@ class StorageEdit extends Component {
           break;
       }
 
+      button = (
+        <div className="row">
+          <div className="col-xs-12 col-sm-10 col-md-8 mx-auto  d-flex justify-content-end">
+            <button className="btn btn-danger mt-4" onClick={this.handleDelete}>
+              <i className="far fa-trash-alt mr-2" /> Delete{" "}
+              {type && capitalizeFirstLetter(type)}
+            </button>
+          </div>
+        </div>
+      );
+
       content = (
         <StorageForm
           storageType={type}
@@ -94,6 +117,7 @@ class StorageEdit extends Component {
     return (
       <div className="container">
         <Message />
+        {button}
         <Heading title={title} />
         {content}
       </div>
@@ -109,5 +133,5 @@ const mapStateToProps = ({ ui, storage }) => ({
 
 export default connect(
   mapStateToProps,
-  { startGetStorage, startEditStorage }
+  { startGetStorage, startEditStorage, startDeleteStorage }
 )(StorageEdit);

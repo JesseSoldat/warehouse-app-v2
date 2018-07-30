@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
     case LOADING:
       return { ...state, loading };
     case NEW_MSG:
-      console.log("NEW_MSG", msg);
+      // console.log("NEW_MSG", msg);
       return { ...state, msg, loading };
 
     case NEW_OPTIONS:

@@ -53,13 +53,17 @@ class StorageForm extends Component {
     const { formType, storageType } = this.props;
 
     return (
-      <form onSubmit={this.onSubmit}>
+      <form
+        className="col-xs-12 col-sm-10 col-md-8 mx-auto"
+        onSubmit={this.onSubmit}
+      >
         <FieldList
           state={this.state}
           storageType={storageType}
           formType={formType}
           onChange={this.onChange}
         />
+
         <input
           type="submit"
           value={capitalizeFirstLetter(formType)}
