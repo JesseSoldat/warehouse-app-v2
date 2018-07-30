@@ -9,7 +9,7 @@ const mergeObjFields = require("../../utils/mergeObjFields");
 
 module.exports = app => {
   // Get all shelfSpots
-  app.get("/api/shelfSpots", async (req, res, next) => {
+  app.get("/api/shelfSpots", async (req, res) => {
     try {
       const shelfSpots = await ShelfSpot.find();
 
@@ -22,7 +22,7 @@ module.exports = app => {
     }
   });
   // Get a single shelfSpot
-  app.get("/api/shelfSpots/:shelfSpotId", async (req, res, next) => {
+  app.get("/api/shelfSpots/:shelfSpotId", async (req, res) => {
     const { shelfSpotId } = req.params;
 
     try {
@@ -47,7 +47,7 @@ module.exports = app => {
     }
   });
   // Create a new shelfSpot and link it to its shelf
-  app.post("/api/shelfSpots/:shelfId", async (req, res, next) => {
+  app.post("/api/shelfSpots/:shelfId", async (req, res) => {
     const { shelfId } = req.params;
     const shelfSpot = new ShelfSpot(req.body);
     shelfSpot["shelf"] = shelfId;
@@ -74,7 +74,7 @@ module.exports = app => {
     }
   });
   // Update a shelfSpot
-  app.patch("/api/shelfSpots/:shelfSpotId", async (req, res, next) => {
+  app.patch("/api/shelfSpots/:shelfSpotId", async (req, res) => {
     const { shelfSpotId } = req.params;
     try {
       const shelfSpot = await ShelfSpot.findByIdAndUpdate(
@@ -88,6 +88,39 @@ module.exports = app => {
       console.log("Err: PATCH/api/shelfSpots/:shelfSpotId", err);
 
       const msg = serverMsg("error", "update", "shelf spot");
+      serverRes(res, 400, msg, null);
+    }
+  });
+  // Delete a shelfSpot
+  app.delete("/api/shelfSpots/:shelfSpotId", async (req, res) => {
+    const { shelfSpotId } = req.params;
+    try {
+      const shelfSpot = await ShelfSpot.findById(shelfSpotId);
+
+      if (shelfSpot.storedItems.length !== 0) {
+        const msg = msgObj(
+          "Delete or relink all stored items of this spot first.",
+          "red"
+        );
+        return serverRes(res, 400, msg, spot);
+      }
+
+      const shelfId = shelfSpot.shelf;
+
+      await Promise.all([
+        Shelf.findByIdAndUpdate(shelfId, {
+          $pull: { shelfSpots: shelfSpotId }
+        }),
+        shelfSpot.remove()
+      ]);
+
+      const msg = msgObj("Shelf Spot deleted.", "green");
+
+      serverRes(res, 200, msg, shelfSpot);
+    } catch (err) {
+      console.log("Err: DELETE/api/shelfSpots/:shelfSpotId", err);
+
+      const msg = msgObj(errMsg("delete", "shelfSpot"), "red");
       serverRes(res, 400, msg, null);
     }
   });

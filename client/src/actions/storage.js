@@ -11,6 +11,28 @@ export const STORAGE_FETCH_ALL = "STORAGE_FETCH_ALL";
 export const STORAGE_FETCH_ONE = "STORAGE_FETCH_ONE";
 export const STORAGE_DELETE_ONE = "STORAGE_DELETE_ONE";
 
+// Search Storages -------------------------
+export const startSearchStorages = (
+  storageType,
+  searchBy,
+  searchText,
+  history
+) => async dispatch => {
+  try {
+    const apiUrl = `/api/storages/search/${storageType}/${searchBy}/${searchText}`;
+
+    const res = await axios.get(apiUrl);
+
+    const { msg, payload } = res.data;
+
+    console.log(payload);
+
+    checkForMsg(msg, dispatch);
+  } catch (err) {
+    axiosResponseErrorHandling(err, dispatch, "query", `${storageType}`);
+  }
+};
+
 // GET Storages ---------------------------
 export const getStorages = (storages = []) => ({
   type: STORAGE_FETCH_ALL,
@@ -83,7 +105,7 @@ export const startCreateStorage = (
 
       case "rack":
       case "shelf":
-      case "spot":
+      case "shelfSpot":
         newItemId = payload[type]._id;
         break;
 
@@ -107,7 +129,6 @@ export const startEditStorage = (
   history
 ) => async dispatch => {
   const apiUrl = `${storageApiUrl(type)}/${id}`;
-  console.log(apiUrl);
 
   try {
     const res = await axios.patch(apiUrl, obj);

@@ -1,11 +1,68 @@
 // models
 const Storage = require("../../models/storage/storage");
+const Rack = require("../../models/storage/rack");
+const Shelf = require("../../models/storage/shelf");
+const ShelfSpot = require("../../models/storage/shelfSpot");
+const Box = require("../../models/storage/box");
 // utils
 const { serverRes, msgObj } = require("../../utils/serverRes");
 const serverMsg = require("../../utils/serverMsg");
 const mergeObjFields = require("../../utils/mergeObjFields");
 
 module.exports = app => {
+  // Search storages
+  app.get(
+    "/api/storages/search/:storageType/:searchBy/:searchText",
+    async (req, res) => {
+      const { storageType, searchBy, searchText } = req.params;
+      const result = {};
+
+      try {
+        switch (storageType) {
+          case "storage":
+            result["storage"] = await Storage.find({
+              [searchBy]: new RegExp(searchText, "i")
+            });
+            break;
+
+          case "rack":
+            result["racks"] = await Rack.find({
+              [searchBy]: new RegExp(searchText, "i")
+            });
+            break;
+
+          case "shelf":
+            result["shelves"] = await Shelf.find({
+              [searchBy]: new RegExp(searchText, "i")
+            });
+            break;
+
+          case "shelfSpot":
+            result["shelfSpots"] = await ShelfSpots.find({
+              [searchBy]: new RegExp(searchText, "i")
+            });
+            break;
+
+          case "box":
+            result["boxes"] = await Box.find({
+              [searchBy]: new RegExp(searchText, "i")
+            });
+            break;
+
+          default:
+            throw Error("Wrong type provided");
+            break;
+        }
+
+        serverRes(res, 200, null, result);
+      } catch (err) {
+        console.log("Err: GET - Query Storage Items", err);
+
+        const msg = msgObj(errMsg("query", "StorageItems"), "red");
+        serverRes(res, 400, msg, null);
+      }
+    }
+  );
   // Get all storages
   app.get("/api/storages", async (req, res) => {
     try {

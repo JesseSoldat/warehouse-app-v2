@@ -46,14 +46,12 @@ class StorageCreate extends Component {
     } else {
       content = (
         <div className="row">
-          <div className="col-xs-12 col-md-8 m-auto">
-            <StorageForm
-              storageType={type}
-              formType="create"
-              handleSubmit={this.handleSubmit}
-              defaultState={defaultState}
-            />
-          </div>
+          <StorageForm
+            storageType={type}
+            formType="create"
+            handleSubmit={this.handleSubmit}
+            defaultState={defaultState}
+          />
         </div>
       );
     }
